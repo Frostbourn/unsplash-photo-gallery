@@ -20,7 +20,7 @@ export default class AutoCompletedText extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("mouseup", this.handleClickOutside);
   }
 
   getImages = () => {
@@ -39,13 +39,15 @@ export default class AutoCompletedText extends React.Component {
   getSuggestions = async () => {
     let { text } = this.state;
     fetch(
-      `https://wordsapiv1.p.rapidapi.com/words/${text}/hasTypes?rapidapi-key=1a4baacd9cmsh2cf61313120ea95p12d8efjsn0e2f0943092d`
+      `https://wordsapiv1.p.rapidapi.com/words/${text}/synonyms?rapidapi-key=1a4baacd9cmsh2cf61313120ea95p12d8efjsn0e2f0943092d`
     )
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          suggestions: data.hasTypes.splice(0, 3)
+          suggestions: data.synonyms
         });
+        this.handleInputClick = this.handleInputClick.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
       });
   };
 
@@ -57,15 +59,14 @@ export default class AutoCompletedText extends React.Component {
       suggestions = suggestions.sort().filter((v) => regex.test(v));
       this.getSuggestions();
     }
-
     this.setState(() => ({
       suggestions,
       text: value
     }));
   };
 
-  handleClickOutside = (event) => {
-    if (this.myRef.current && !this.myRef.current.contains(event.target)) {
+  handleClickOutside = (e) => {
+    if (this.myRef.current && !this.myRef.current.contains(e.target)) {
       this.setState({
         showSuggestions: false
       });
@@ -89,7 +90,7 @@ export default class AutoCompletedText extends React.Component {
 
   renderSuggestions = () => {
     let { suggestions } = this.state;
-    if (suggestions === undefined && suggestions.length) {
+    if (suggestions === undefined) {
       return null;
     } else if (suggestions.length > 1) {
       return (
@@ -160,7 +161,6 @@ export default class AutoCompletedText extends React.Component {
                       src={item.urls.regular}
                       alt={"Author: " + item.user.name + ", ❤️ " + item.likes}
                     />
-                    {/* <p class="title">{description}</p> */}
                   </div>
                 );
               })}

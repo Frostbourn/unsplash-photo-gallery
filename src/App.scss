@@ -18,6 +18,7 @@ code {
       display: flex;
       flex-direction: column;
       height: 45vh;
+      min-height: 350px;
       font-size: calc(10px + 2vmin);
       background-image: url(https://images.unsplash.com/photo-1604030560689-97ccf543b3a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&dpr=1&auto=format%2Ccompress&fit=crop&w=2599&h=594);
       background-size: cover;
@@ -125,7 +126,8 @@ code {
       column-count: 4;
       -moz-column-gap: 1em;
       column-gap: 1em;
-      margin: 6vh;
+      margin: 0 auto;
+      padding: 6vh;
 
       &:hover {
         img {
