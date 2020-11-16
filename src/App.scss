@@ -1,0 +1,192 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+  .app {
+
+    .app-header {
+      display: flex;
+      flex-direction: column;
+      height: 45vh;
+      font-size: calc(10px + 2vmin);
+      background-image: url(https://images.unsplash.com/photo-1604030560689-97ccf543b3a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&dpr=1&auto=format%2Ccompress&fit=crop&w=2599&h=594);
+      background-size: cover;
+
+      .search-form {
+        margin: 5vh auto;
+
+        .logo {
+          margin: 20px 0;
+          color: #fff;
+          font-size: 46px;
+          font-weight: bold;
+        }
+
+        .sub-logo {
+          font-size: 18px;
+          font-weight: 400;
+          color: #fff;
+          line-height: 1.5;
+
+          a {
+            color: hsla(0, 0%, 100%, .8);
+            transition: color .1s ease-in-out, opacity .1s ease-in-out;
+            -webkit-text-decoration-skip: ink;
+            text-decoration-skip-ink: auto;
+
+            &:hover {
+              color: #fff;
+            }
+          }
+        }
+
+
+        input {
+          z-index: 99999;
+          width: 50vw;
+          height: 30px;
+          padding: 10px 20px;
+          font-family: Helvetica, sans-serif;
+          font-weight: 300;
+          font-size: 16px;
+          border: 1px solid #aaa;
+          border-radius: 4px;
+
+          &:before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25' fill-rule='evenodd'%3E%3Cpath d='M16.036 18.455l2.404-2.405 5.586 5.587-2.404 2.404zM8.5 2C12.1 2 15 4.9 15 8.5S12.1 15 8.5 15 2 12.1 2 8.5 4.9 2 8.5 2zm0-2C3.8 0 0 3.8 0 8.5S3.8 17 8.5 17 17 13.2 17 8.5 13.2 0 8.5 0zM15 16a1 1 0 1 1 2 0 1 1 0 1 1-2 0'%3E%3C/path%3E%3C/svg%3E") center / contain no-repeat;
+          }
+        }
+
+        .label {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+          .App-logo {
+            -webkit-animation: App-logo-spin infinite 20s linear;
+            animation: App-logo-spin infinite 20s linear;
+          }
+        }
+
+        ul {
+          z-index: 99999;
+          position: relative;
+          background: white;
+          margin: 0 auto;
+          width: 50vw;
+          max-height: 390px;
+          overflow-y: auto;
+          padding: 10px 20px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0 0 5px 5px;
+          font-size: 14px;
+          list-style: none;
+
+          li {
+            cursor: pointer;
+          }
+        }
+
+        span {
+          z-index: 99999;
+          position: relative;
+          background: white;
+          margin: 0 auto;
+          width: 50vw;
+          max-height: 390px;
+          overflow-y: auto;
+          padding: 10px 20px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          font-size: 14px;
+          list-style: none;
+        }
+      }
+    }
+
+    .app-gallery {
+      -moz-column-count: 4;
+      column-count: 4;
+      -moz-column-gap: 1em;
+      column-gap: 1em;
+      margin: 6vh;
+
+      &:hover {
+        img {
+          opacity: 0.75;
+        }
+      }
+
+      .item {
+        display: inline-block;
+        margin: 0 0 1em;
+        width: 100%;
+
+        img {
+          width: 100%;
+          display: block;
+          transition: all .8s;
+          cursor: zoom-in;
+        }
+
+        .title {
+          position: absolute;
+          top: 48%;
+          left: 0;
+          width: 100%;
+          padding: 0 3%;
+          font-size: 30px;
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
+        }
+
+        &:hover {
+          img {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @media (max-width : 860px) {
+
+      .app-gallery {
+        -moz-column-count: 3;
+        column-count: 3;
+
+
+      }
+    }
+
+    @media (max-width : 667px) {
+
+      .app-gallery {
+        -moz-column-count: 2;
+        column-count: 2;
+      }
+    }
+
+    @media (max-width : 500px) {
+
+      .app-gallery {
+        -moz-column-count: 1;
+        column-count: 1;
+      }
+    }
+  }
+}
