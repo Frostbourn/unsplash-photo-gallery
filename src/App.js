@@ -3,49 +3,24 @@ import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import "./App.scss";
 
 export default class AutoCompletedText extends React.Component {
+  myRef = React.createRef();
+
   constructor(props) {
     super(props);
     this.state = {
       suggestions: [],
       text: "",
-      results: []
+      results: [],
+      showSuggestions: false
     };
-    this.showSuggestions = React.createRef();
   }
 
-  onTextChange = (e) => {
-    const value = e.target.value;
-    let suggestions = [e.target.suggestions];
-    if (value.length > 1) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggestions = suggestions.sort().filter((v) => regex.test(v));
-      this.getSuggestions();
-    }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
 
-    this.setState(() => ({
-      suggestions,
-      text: value
-    }));
-  };
-
-  handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      this.getImages();
-      // this.getSuggestions();
-    }
-  };
-
-  handleClickOutside = (e) => {
-    if (
-      this.showSuggestions &&
-      !this.showSuggestions.current.contains(e.target)
-    ) {
-      this.close();
-    }
-  };
-
-  selectedText(value) {
-    this.setState(() => ({ text: value }), this.getImages);
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   getImages = () => {
@@ -64,22 +39,59 @@ export default class AutoCompletedText extends React.Component {
   getSuggestions = async () => {
     let { text } = this.state;
     fetch(
-      await `https://wordsapiv1.p.rapidapi.com/words/${text}/hasTypes?rapidapi-key=1a4baacd9cmsh2cf61313120ea95p12d8efjsn0e2f0943092d`
+      `https://wordsapiv1.p.rapidapi.com/words/${text}/hasTypes?rapidapi-key=1a4baacd9cmsh2cf61313120ea95p12d8efjsn0e2f0943092d`
     )
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          suggestions: data.hasTypes.splice(1, 10)
+          suggestions: data.hasTypes.splice(0, 3)
         });
       });
   };
 
+  onInputChange = (e) => {
+    const value = e.target.value;
+    let suggestions = [e.target.suggestions];
+    if (value.length > 1) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggestions = suggestions.sort().filter((v) => regex.test(v));
+      this.getSuggestions();
+    }
+
+    this.setState(() => ({
+      suggestions,
+      text: value
+    }));
+  };
+
+  handleClickOutside = (event) => {
+    if (this.myRef.current && !this.myRef.current.contains(event.target)) {
+      this.setState({
+        showSuggestions: false
+      });
+    }
+  };
+
+  handleInputClick = (e) => {
+    this.setState((state) => {
+      return {
+        showSuggestions: !state.showSuggestions
+      };
+    });
+    if (e.key === "Enter") {
+      this.getImages();
+    }
+  };
+
+  selectedText(value) {
+    this.setState(() => ({ text: value }), this.getImages);
+  }
+
   renderSuggestions = () => {
     let { suggestions } = this.state;
-    console.log(suggestions);
     if (suggestions === undefined && suggestions.length) {
       return null;
-    } else if (suggestions.length > 0) {
+    } else if (suggestions.length > 1) {
       return (
         <>
           <ul>
@@ -97,16 +109,9 @@ export default class AutoCompletedText extends React.Component {
     }
   };
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
   render() {
     const { text, suggestions, results } = this.state;
+
     const lightboxOptions = {
       settings: {
         disableKeyboardControls: false,
@@ -132,15 +137,16 @@ export default class AutoCompletedText extends React.Component {
               <br />
               Powered by creators everywhere.
             </p>
-            <div ref={this.showSuggestions}>
+            <div ref={this.myRef}>
               <input
                 id="query"
                 type="text"
-                onChange={this.onTextChange}
+                onChange={this.onInputChange}
                 value={text}
-                onKeyPress={this.handleKeyPress}
+                onKeyPress={this.handleInputClick}
+                onClick={this.handleInputClick}
               />
-              {this.renderSuggestions()}
+              {this.state.showSuggestions && this.renderSuggestions()}
             </div>
           </div>
         </header>
