@@ -28,13 +28,14 @@ export default class AutoCompletedText extends React.Component {
   getImages = () => {
     let { text } = this.state;
     fetch(
-      `https://api.unsplash.com/search/photos?client_id=8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f&query=${text}`
+      `https://api.unsplash.com/search/photos?per_page=30&client_id=8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f&query=${text}`
     )
       .then((response) => response.json())
       .then((data) => {
         this.setState({
           results: data.results
         });
+        console.log(data);
       });
   };
 
@@ -180,14 +181,18 @@ export default class AutoCompletedText extends React.Component {
               {results.map((item) => {
                 return (
                   <div key={item.id} className="item">
-                    <img
-                      src={item.urls.regular}
-                      alt={"Author: " + item.user.name}
-                    />
+                    <img src={item.urls.regular} alt={"Author: "} />
                     <div className="item-caption">
-                      <p>
+                      <p className="item-likes">
                         <span role="img">❤️</span> {item.likes}
                       </p>
+                      <a
+                        href={item.links.download}
+                        className="item-button"
+                        target="_blank"
+                      >
+                        Download
+                      </a>
                     </div>
                   </div>
                 );
