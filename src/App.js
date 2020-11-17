@@ -35,13 +35,12 @@ export default class AutoCompletedText extends React.Component {
         this.setState({
           results: data.results
         });
-        console.log(data);
       });
   };
 
   getSuggestions = async () => {
     let { text } = this.state;
-    fetch(`https://api.datamuse.com/sug?s=${text}&max=10`)
+    fetch(`https://api.datamuse.com/sug?s=${text}&max=6`)
       .then((response) => response.json())
       .then((data) => {
         const suggestionsArray = [].concat(...data);
@@ -52,7 +51,6 @@ export default class AutoCompletedText extends React.Component {
   };
 
   onInputChange = (e) => {
-    // e.preventDefault();
     const value = e.target.value;
     let suggestions = [e.target.suggestions];
     if (value.length > 2) {
@@ -124,8 +122,8 @@ export default class AutoCompletedText extends React.Component {
 
     const lightboxOptions = {
       settings: {
-        disableKeyboardControls: false,
-        disableWheelControls: false
+        disableKeyboardControls: true,
+        disableWheelControls: true
       },
       buttons: {
         showAutoplayButton: false,
@@ -181,7 +179,10 @@ export default class AutoCompletedText extends React.Component {
               {results.map((item) => {
                 return (
                   <div key={item.id} className="item">
-                    <img src={item.urls.regular} alt={"Author: "} />
+                    <img
+                      src={item.urls.regular}
+                      alt={"Author: " + item.user.name}
+                    />
                     <div className="item-caption">
                       <p className="item-likes">
                         <span role="img">❤️</span> {item.likes}

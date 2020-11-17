@@ -77,14 +77,13 @@ code {
         }
 
         ul {
-          z-index: 99999;
+          z-index: 999;
           position: relative;
           background: white;
           margin: 0 auto;
           padding: 0;
           width: auto;
           display: block;
-          max-height: 200px;
           overflow-y: auto;
           border: 1px solid rgba(0, 0, 0, 0.1);
           border-radius: 0 0 5px 5px;
