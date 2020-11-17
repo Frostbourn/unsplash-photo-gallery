@@ -17,11 +17,12 @@ export default class AutoCompletedText extends React.Component {
 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
-    document.addEventListener("keydown", this.handleClickOutside);
+    document.addEventListener("keydown", this.handleInputClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("keydown", this.handleInputClick);
   }
 
   getImages = () => {
@@ -39,23 +40,21 @@ export default class AutoCompletedText extends React.Component {
 
   getSuggestions = async () => {
     let { text } = this.state;
-    fetch(
-      `https://wordsapiv1.p.rapidapi.com/words/${text}/synonyms?rapidapi-key=1a4baacd9cmsh2cf61313120ea95p12d8efjsn0e2f0943092d`
-    )
+    fetch(`https://api.datamuse.com/sug?s=${text}&max=10`)
       .then((response) => response.json())
       .then((data) => {
+        const suggestionsArray = [].concat(...data);
         this.setState({
-          suggestions: data.synonyms
+          suggestions: suggestionsArray
         });
-        this.handleInputClick = this.handleInputClick.bind(this);
-        this.handleClickOutside = this.handleClickOutside.bind(this);
       });
   };
 
   onInputChange = (e) => {
+    // e.preventDefault();
     const value = e.target.value;
     let suggestions = [e.target.suggestions];
-    if (value.length > 1) {
+    if (value.length > 2) {
       const regex = new RegExp(`^${value}`, "i");
       suggestions = suggestions.sort().filter((v) => regex.test(v));
       this.getSuggestions();
@@ -91,7 +90,7 @@ export default class AutoCompletedText extends React.Component {
 
   renderSuggestions = () => {
     let { suggestions } = this.state;
-    if (suggestions === undefined) {
+    if (suggestions.length < 2) {
       return (
         <>
           <ul>
@@ -101,13 +100,13 @@ export default class AutoCompletedText extends React.Component {
           </ul>
         </>
       );
-    } else if (suggestions.length > 1) {
+    } else if (suggestions.length > 2) {
       return (
         <>
           <ul>
             {suggestions.map((item, index) => (
-              <li key={index}>
-                <a onClick={() => this.selectedText(item)}>{item} </a>
+              <li key={index} onClick={() => this.selectedText(item.word)}>
+                <a href="#">{item.word}</a>
               </li>
             ))}
             <li style={{ fontStyle: "italic", fontWeight: "bold" }}>
@@ -120,7 +119,7 @@ export default class AutoCompletedText extends React.Component {
   };
 
   render() {
-    const { text, suggestions, results } = this.state;
+    const { text, results } = this.state;
 
     const lightboxOptions = {
       settings: {
@@ -137,6 +136,7 @@ export default class AutoCompletedText extends React.Component {
         showThumbnails: false
       }
     };
+
     return (
       <div className="app">
         <header className="app-header">
@@ -162,7 +162,21 @@ export default class AutoCompletedText extends React.Component {
         </header>
         <SimpleReactLightbox>
           <SRLWrapper options={lightboxOptions}>
-            <div className="app-gallery">
+            <div className="app-sentence">
+              <svg
+                width="32"
+                height="32"
+                className="_1Ig-9"
+                version="1.1"
+                viewBox="0 0 32 32"
+                aria-hidden="false"
+              >
+                <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path>
+              </svg>
+              <br />
+              <p>Make something awesome</p>
+            </div>
+            <main className="app-gallery">
               {results.map((item) => {
                 return (
                   <div key={item.id} className="item">
@@ -171,12 +185,14 @@ export default class AutoCompletedText extends React.Component {
                       alt={"Author: " + item.user.name}
                     />
                     <div className="item-caption">
-                      <p>❤️ {item.likes}</p>
+                      <p>
+                        <span role="img">❤️</span> {item.likes}
+                      </p>
                     </div>
                   </div>
                 );
               })}
-            </div>
+            </main>
           </SRLWrapper>
         </SimpleReactLightbox>
       </div>
