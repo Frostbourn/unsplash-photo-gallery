@@ -17,10 +17,11 @@ export default class AutoCompletedText extends React.Component {
 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener("keydown", this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mouseup", this.handleClickOutside);
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   getImages = () => {
@@ -91,7 +92,15 @@ export default class AutoCompletedText extends React.Component {
   renderSuggestions = () => {
     let { suggestions } = this.state;
     if (suggestions === undefined) {
-      return null;
+      return (
+        <>
+          <ul>
+            <li style={{ fontStyle: "italic", fontWeight: "bold" }}>
+              No suggestions
+            </li>
+          </ul>
+        </>
+      );
     } else if (suggestions.length > 1) {
       return (
         <>
@@ -159,8 +168,11 @@ export default class AutoCompletedText extends React.Component {
                   <div key={item.id} className="item">
                     <img
                       src={item.urls.regular}
-                      alt={"Author: " + item.user.name + ", ❤️ " + item.likes}
+                      alt={"Author: " + item.user.name}
                     />
+                    <div className="item-caption">
+                      <p>❤️ {item.likes}</p>
+                    </div>
                   </div>
                 );
               })}
