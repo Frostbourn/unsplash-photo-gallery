@@ -105,7 +105,7 @@ export default class AutoCompletedText extends React.Component {
           <ul>
             {suggestions.map((item, index) => (
               <li key={index} onClick={() => this.selectedText(item.word)}>
-                <a href="#">{item.word}</a>
+                <a href="#top">{item.word}</a>
               </li>
             ))}
             <li style={{ fontStyle: "italic", fontWeight: "bold" }}>
@@ -142,7 +142,7 @@ export default class AutoCompletedText extends React.Component {
           <div className="search-form">
             <p className="logo">Unsplash</p>
             <p className="sub-logo">
-              The internet’s source of <a href="#">freely-usable images</a>.{" "}
+              The internet’s source of <a href="#top">freely-usable images</a>.{" "}
               <br />
               Powered by creators everywhere.
             </p>
@@ -185,12 +185,16 @@ export default class AutoCompletedText extends React.Component {
                     />
                     <div className="item-caption">
                       <p className="item-likes">
-                        <span role="img">❤️</span> {item.likes}
+                        <span role="img" aria-label="heart emoji">
+                          ❤️
+                        </span>{" "}
+                        {item.likes}
                       </p>
                       <a
                         href={item.links.download}
                         className="item-button"
                         target="_blank"
+                        rel="noreferrer"
                       >
                         Download
                       </a>
