@@ -1,8 +1,6 @@
-import React, { lazy } from "react";
+import React from "react";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-
 import "./App.scss";
-import { Header } from "/components/Header";
 
 export default class AutoCompletedText extends React.Component {
   myRef = React.createRef();
@@ -30,7 +28,7 @@ export default class AutoCompletedText extends React.Component {
   getImages = () => {
     let { text } = this.state;
     fetch(
-      `https://api.unsplash.com/search/photos?per_page=10&client_id=8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f&query=${text}`
+      `https://api.unsplash.com/search/photos?per_page=30&client_id=8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f&query=${text}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -140,20 +138,27 @@ export default class AutoCompletedText extends React.Component {
 
     return (
       <div className="app">
-        <Header />
-
-        <div ref={this.myRef}>
-          <input
-            id="query"
-            type="text"
-            onChange={this.onInputChange}
-            value={text}
-            onKeyPress={this.handleInputClick}
-            onClick={this.handleInputClick}
-          />
-          {this.state.showSuggestions && this.renderSuggestions()}
-        </div>
-
+        <header className="app-header">
+          <div className="search-form">
+            <p className="logo">Unsplash</p>
+            <p className="sub-logo">
+              The internet’s source of <a href="#top">freely-usable images</a>.{" "}
+              <br />
+              Powered by creators everywhere.
+            </p>
+            <div ref={this.myRef}>
+              <input
+                id="query"
+                type="text"
+                onChange={this.onInputChange}
+                value={text}
+                onKeyPress={this.handleInputClick}
+                onClick={this.handleInputClick}
+              />
+              {this.state.showSuggestions && this.renderSuggestions()}
+            </div>
+          </div>
+        </header>
         <SimpleReactLightbox>
           <SRLWrapper options={lightboxOptions}>
             <div className="app-sentence">
