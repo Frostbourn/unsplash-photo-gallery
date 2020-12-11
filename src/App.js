@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { createApi, toJson } from "unsplash-js";
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import { createApi } from "unsplash-js";
 
 import "./App.scss";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import Sentence from "./components/Sentence";
-import Photos from "./components/Photos";
+const Photos = lazy(() => import("./components/Photos"));
+import Spinner from "./components/Spinner";
 
 const unsplash = createApi({
   accessKey: "8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f"
@@ -19,40 +20,39 @@ const App = () => {
   const [photosData, setPhotosData] = useState({});
   const [page, setPage] = useState(1);
 
-  const fetchPhotos = () => {
-    if (cache[query] && cache[query][page]) {
-      setPhotosData(cache[query][page]);
-      // console.log(cache);
-    } else {
-      try {
-        unsplash.search
-          .getPhotos({
-            query: query,
-            page: 1,
-            per_page: 10
-          })
-          .then((result) => {
-            const results = result.response;
-            setPhotosData(results);
-
-            cache[query] = cache[query] ? cache[query] : {};
-            cache[query][page] = results;
-            localStorage.setItem("cache", JSON.stringify(cache));
-          });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
-
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
   };
 
   useEffect(() => {
+    const fetchPhotos = () => {
+      if (cache[query] && cache[query][page]) {
+        setPhotosData(cache[query][page]);
+        // console.log(cache);
+      } else {
+        try {
+          unsplash.search
+            .getPhotos({
+              query: query,
+              page: 1,
+              per_page: 10
+            })
+            .then((result) => {
+              const results = result.response;
+              setPhotosData(results);
+
+              cache[query] = cache[query] ? cache[query] : {};
+              cache[query][page] = results;
+              localStorage.setItem("cache", JSON.stringify(cache));
+            });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
     fetchPhotos();
   }, [query, page]);
-  console.log(photosData);
+
   const photosArray = photosData.results || [];
   return (
     <div className="app">
@@ -71,10 +71,12 @@ const App = () => {
         </div>
       </div>
       <Sentence stats={photosData.total} query={query} />
-      <div className="app-gallery">
-        <Photos photos={photosArray.slice(1, 9)} />
-        <button className="button">Load more</button>
-      </div>
+      <Suspense fallback={<Spinner />}>
+        <div className="app-gallery">
+          <Photos photos={photosArray.slice(1, 10)} />
+          {/* <button className="button">Load more</button> */}
+        </div>
+      </Suspense>
     </div>
   );
 };

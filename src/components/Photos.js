@@ -18,7 +18,6 @@ const lightboxOptions = {
 };
 
 const Photos = ({ photos }) => {
-  console.log(photos);
   const gallery =
     photos &&
     !!photos.length &&
@@ -45,11 +44,7 @@ const Photos = ({ photos }) => {
         </div>
       );
     });
-  let content = gallery.length ? (
-    gallery
-  ) : (
-    <p>Sorry there are no results, try again!</p>
-  );
+  let content = gallery.length && gallery;
   return (
     <SimpleReactLightbox>
       <SRLWrapper options={lightboxOptions}>{content}</SRLWrapper>
