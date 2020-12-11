@@ -35,7 +35,7 @@ const App = () => {
             .getPhotos({
               query: query,
               page: 1,
-              per_page: 10
+              per_page: 16
             })
             .then((result) => {
               const results = result.response;
@@ -73,7 +73,7 @@ const App = () => {
       <Sentence stats={photosData.total} query={query} />
       <Suspense fallback={<Spinner />}>
         <div className="app-gallery">
-          <Photos photos={photosArray.slice(1, 10)} />
+          <Photos photos={photosArray.slice(1, 16)} />
           {/* <button className="button">Load more</button> */}
         </div>
       </Suspense>

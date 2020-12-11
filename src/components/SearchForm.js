@@ -41,8 +41,8 @@ const SearchForm = ({ onSearchPhoto }) => {
     setShowSuggestions(true);
   };
 
-  const onSuggestionClick = () => {
-    onSearchPhoto(search);
+  const onSuggestionClick = (e) => {
+    onSearchPhoto(e);
     setSearch("");
     setSuggestions("");
     setShowSuggestions(false);
