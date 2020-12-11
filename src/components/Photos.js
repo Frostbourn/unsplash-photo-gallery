@@ -24,7 +24,7 @@ const Photos = ({ photos }) => {
     photos.map((photo) => {
       return (
         <div key={photo.id} className="item">
-          <img src={photo.urls.regular} alt={"Author: " + photo.user.name} />
+          <img src={photo.urls.small} alt={"Author: " + photo.user.name} />
           <div className="item-caption">
             <p className="item-likes">
               <span role="img" aria-label="heart emoji">

@@ -15,11 +15,18 @@ const Sentence = ({ stats, query }) => {
           <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path>
         </svg>
         <br />
-        <p>Make something awesome</p>
-        <p className="gallery-stats">
-          Currently showing <b>{stats}</b> results for:
-          <b className="query"> {query}</b>
-        </p>
+        <p className="gallery-stats">Make something awesome</p>
+        {stats === 0 ? (
+          <p>
+            Sorry there are no results for <b className="query">{query}</b>, try
+            again!
+          </p>
+        ) : (
+          <p className="gallery-stats">
+            Currently showing <b>{stats}</b> results for:
+            <b className="query"> {query}</b>
+          </p>
+        )}
       </div>
     </>
   );
