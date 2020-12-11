@@ -18,14 +18,36 @@ code {
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 45vh;
+      height: 52vh;
       min-height: 350px;
       font-size: calc(10px + 2vmin);
-      background-image: url(https://images.unsplash.com/photo-1604030560689-97ccf543b3a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&dpr=1&auto=format%2Ccompress&fit=crop&w=2599&h=594);
       background-size: cover;
 
+      .header-bg {
+        position: absolute;
+        width: 100%;
+        height: 52vh;
+        top: 0;
+        bottom: 0;
+        background: url(https://images.unsplash.com/photo-1507808973436-a4ed7b5e87c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMDQ5Mjd8MHwxfHNlYXJjaHwxfHxmdW5ueXxlbnwwfHx8&ixlib=rb-1.2.1&q=80&w=1080);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        //opacity: .2;
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg,rgba(0,0,0,.38) 0,rgba(0,0,0,.38) 3.5%,rgba(0,0,0,.379) 7%,rgba(0,0,0,.377) 10.35%,rgba(0,0,0,.375) 13.85%,rgba(0,0,0,.372) 17.35%,rgba(0,0,0,.369) 20.85%,rgba(0,0,0,.366) 24.35%,rgba(0,0,0,.364) 27.85%,rgba(0,0,0,.361) 31.35%,rgba(0,0,0,.358) 34.85%,rgba(0,0,0,.355) 38.35%,rgba(0,0,0,.353) 41.85%,rgba(0,0,0,.351) 45.35%,rgba(0,0,0,.35) 48.85%,rgba(0,0,0,.353) 52.35%,rgba(0,0,0,.36) 55.85%,rgba(0,0,0,.371) 59.35%,rgba(0,0,0,.385) 62.85%,rgba(0,0,0,.402) 66.35%,rgba(0,0,0,.42) 69.85%,rgba(0,0,0,.44) 73.35%,rgba(0,0,0,.46) 76.85%,rgba(0,0,0,.48) 80.35%,rgba(0,0,0,.498) 83.85%,rgba(0,0,0,.515) 87.35%,rgba(0,0,0,.529) 90.85%,rgba(0,0,0,.54) 94.35%,rgba(0,0,0,.547) 97.85%,rgba(0,0,0,.55));
+}
+        
+      }
       .search-form {
         margin: 5vh auto;
+        z-index: 1;
 
         .logo {
           margin: 20px 0;
@@ -41,13 +63,13 @@ code {
           line-height: 1.5;
 
           a {
-            color: hsla(0, 0%, 100%, .8);
+            color: #fff;
             transition: color .1s ease-in-out, opacity .1s ease-in-out;
             -webkit-text-decoration-skip: ink;
             text-decoration-skip-ink: auto;
 
             &:hover {
-              color: #fff;
+              font-weight: bolder;
             }
           }
         }
