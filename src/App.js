@@ -62,11 +62,7 @@ const App = () => {
           <SearchForm onSearchPhoto={onSearchPhoto} />
         </div>
       </div>
-      <Sentence />
-      <p>
-        Currently showing <b>{photosData.total}</b> results for: {""}
-        <b className="query">{query}</b>
-      </p>
+      <Sentence stats={photosData.total} query={query} />
       <div className="app-gallery">
         <Photos photos={photosArray} />
         <button className="button">Load more</button>
