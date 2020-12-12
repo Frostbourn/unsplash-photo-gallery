@@ -24,7 +24,7 @@ const SearchForm = ({ onSearchPhoto }) => {
         const suggestionsArray = data;
         // console.log(data);
         setSuggestions({
-          suggestions: suggestionsArray
+          suggestions: suggestionsArray,
         });
       });
   };
@@ -69,14 +69,16 @@ const SearchForm = ({ onSearchPhoto }) => {
 
   return (
     <form ref={ref} onSubmit={onSubmitForm}>
-      <input
-        id="query"
-        type="text"
-        placeholder="Search free high-resolution photos"
-        onChange={onInputChange}
-        onClick={(e) => onInputClick(!showSuggestions)}
-        value={search}
-      />
+      <label>
+        <input
+          id="query"
+          type="text"
+          placeholder="Search free high-resolution photos"
+          onChange={onInputChange}
+          onClick={(e) => onInputClick(!showSuggestions)}
+          value={search}
+        />
+      </label>
       {showSuggestions && (
         <Suggestions
           suggestions={suggestions}

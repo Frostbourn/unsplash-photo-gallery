@@ -16,7 +16,7 @@ const unsplash = createApi({
 const App = () => {
   const [query, setQuery] = useState("funny");
   const [photosData, setPhotosData] = useState([]);
-  const [loaded, setIsLoaded] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState("");
 
@@ -34,11 +34,10 @@ const App = () => {
       .then((result) => {
         const results = result.response.results;
         setPhotosData([...photosData, ...results]);
-        setIsLoaded(true);
-        let pg = page;
-        pg++;
-        setPage(pg);
-        console.log(photosData);
+        setLoading(true);
+        let nextPage = page;
+        nextPage++;
+        setPage(nextPage);
       });
   };
 
@@ -53,7 +52,7 @@ const App = () => {
         const results = result.response;
         setPhotosData(results.results);
         setTotal(results.total);
-        setIsLoaded(true);
+        setLoading(true);
       });
   }, [query]);
 
@@ -82,10 +81,8 @@ const App = () => {
             hasMore={true}
             scrollThreshold={1}
           >
-            {loaded ? <Photos photos={photosData.slice(1)} /> : ""}
+            {isLoading ? <Photos photos={photosData.slice(1)} /> : ""}
           </InfiniteScroll>
-          {/* <Photos photos={photosData.slice(1, 13)} /> */}
-          {/* <button className="button">Load more</button> */}
         </div>
       </Suspense>
     </div>
