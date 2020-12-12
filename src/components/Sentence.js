@@ -22,12 +22,10 @@ const Sentence = ({ stats, query }) => {
           </p>
         ) : (
           <p className="gallery-stats">
-            Currently showing{" "}
-            <strong>
-              <CountUp end={stats} />
-            </strong>{" "}
+            Currently showing
+            <strong> {stats && <CountUp end={stats} />} </strong>
             results for:
-            <b className="query"> {query}</b>
+            <strong> {query} </strong>
           </p>
         )}
       </div>
