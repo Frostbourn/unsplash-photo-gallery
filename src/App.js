@@ -13,67 +13,50 @@ const unsplash = createApi({
   accessKey: "8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f"
 });
 
-const cache = JSON.parse(localStorage.getItem("cache")) || {};
-localStorage.clear();
-
 const App = () => {
   const [query, setQuery] = useState("funny");
   const [photosData, setPhotosData] = useState([]);
-  const [loaded, setIsLoaded] = React.useState(false);
+  const [loaded, setIsLoaded] = useState(false);
   const [page, setPage] = useState(1);
+  const [total, setTotal] = useState("");
 
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
   };
 
-  const fetchPhotos = () => {
-    if (cache[query] && cache[query][page]) {
-      setPhotosData(cache[query][page]);
-      // console.log(cache);
-    } else {
-      try {
-        unsplash.search
-          .getPhotos({
-            query: query,
-            page: 1,
-            per_page: 13
-          })
-          .then((result) => {
-            const results = result.response.results;
-            setPhotosData(results);
-            setIsLoaded(true);
-            cache[query] = cache[query] ? cache[query] : {};
-            cache[query][page] = results;
-            localStorage.setItem("cache", JSON.stringify(cache));
-          });
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  const getMorePhotos = (count = 9, page) => {
+    unsplash.search
+      .getPhotos({
+        query: query,
+        page: page,
+        per_page: count
+      })
+      .then((result) => {
+        const results = result.response.results;
+        setPhotosData([...photosData, ...results]);
+        setIsLoaded(true);
+        let pg = page;
+        pg++;
+        setPage(pg);
+        console.log(photosData);
+      });
   };
 
-  // const getMorePhotos = (count = 13, page = 1) => {
-  //   unsplash.search
-  //     .getPhotos({
-  //       query: query,
-  //       page: page,
-  //       per_page: count,
-  //     })
-  //     .then((result) => {
-  //       const results = result.response.results;
-  //       setPhotosData(results);
-  //       setIsLoaded(true);
-  //       let pg = page;
-  //       pg++;
-  //       setPage(pg);
-  //     });
-  // };
-
   useEffect(() => {
-    fetchPhotos();
-  }, [query, page]);
+    unsplash.search
+      .getPhotos({
+        query: query,
+        page: 1,
+        per_page: 9
+      })
+      .then((result) => {
+        const results = result.response;
+        setPhotosData(results.results);
+        setTotal(results.total);
+        setIsLoaded(true);
+      });
+  }, [query]);
 
-  console.log(photosData);
   return (
     <div className="app">
       <div className="app-header">
@@ -90,16 +73,16 @@ const App = () => {
           <SearchForm onSearchPhoto={onSearchPhoto} />
         </div>
       </div>
-      <Sentence stats="123" query={query} />
+      <Sentence stats={total} query={query} />
       <Suspense fallback={<Spinner />}>
         <div className="app-gallery">
           <InfiniteScroll
             dataLength={photosData.length}
-            //next={() => setPage(page => page + 1)}
-            // next={() => getMorePhotos(13, page + 1)}
+            next={() => getMorePhotos(9, page + 1)}
             hasMore={true}
+            scrollThreshold={1}
           >
-            {loaded ? <Photos photos={photosData.slice(1, 13)} /> : ""}
+            {loaded ? <Photos photos={photosData.slice(1)} /> : ""}
           </InfiniteScroll>
           {/* <Photos photos={photosData.slice(1, 13)} /> */}
           {/* <button className="button">Load more</button> */}

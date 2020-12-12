@@ -21,9 +21,9 @@ const Photos = ({ photos }) => {
   const gallery =
     photos &&
     !!photos.length &&
-    photos.map((photo) => {
+    photos.map((photo, index) => {
       return (
-        <div key={photo.id} className="item">
+        <div key={index} className="item">
           <img src={photo.urls.small} alt={"Author: " + photo.user.name} />
           <div className="item-caption">
             <p className="item-likes">
@@ -36,7 +36,7 @@ const Photos = ({ photos }) => {
               href={photo.links.download}
               className="item-button"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Download
             </a>
@@ -50,44 +50,6 @@ const Photos = ({ photos }) => {
       <SRLWrapper options={lightboxOptions}>{content}</SRLWrapper>
     </SimpleReactLightbox>
   );
-
-  // photos.map((photo) => (
-  //   <div
-  //     key={photo.id}
-  //     className="photo column is-one-quarter-tablet is-half-mobile"
-  //   >
-  //     <div className="img-container">
-  //       <img
-  //         src={photo.urls.small}
-  //         alt={photo.alt_description}
-  //         className="image image-small"
-  //         data-src={photo.urls.regular}
-  //       />
-  //       <div className="img-content">
-  //         <div className="subtitle">
-  //           <a href={photo.links.html} target="_blank">
-  //             {photo.user.name}
-  //           </a>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // ));
-  // let content = rows.length ? (
-  //   rows
-  // ) : (
-  //   <div className="column">
-  //     <p className="content no-content">
-  //       Sorry there are no results, try again!
-  //     </p>
-  //   </div>
-  // );
-  // return (
-  //   <div className="column no-padding">
-  //     <div className="columns is-multiline is-mobile"></div>
-  //     <Suspense fallback={<div>Loading...</div>}></Suspense>
-  //   </div>
-  // );
 };
 
 export default Photos;
