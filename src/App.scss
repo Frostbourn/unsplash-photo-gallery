@@ -79,7 +79,7 @@ body {
         input {
           z-index: 99999;
           display: block;
-          width: 50vw;
+          width: 45vw;
           height: 30px;
           padding: 10px 20px;
           font-family: Helvetica, sans-serif;
@@ -172,7 +172,8 @@ body {
       -moz-column-gap: 1em;
       column-gap: 1em;
       margin: 0 auto;
-      padding: 0 6vh;
+      padding: 0 15vh;
+      max-width: 1280px;
 
       &:hover {
         img {
@@ -255,6 +256,12 @@ body {
     }
 
     @media (max-width : 860px) {
+      .app-gallery {
+        -moz-column-count: 2;
+        column-count: 2;
+        padding: 0 5vw;
+      }
+
       .search-form {
         text-align: center;
         justify-content: center !important;
@@ -276,6 +283,10 @@ body {
     }
 
     @media (max-width : 500px) {
+      .app-gallery {
+        -moz-column-count: 1;
+        column-count: 1;
+      }
 
       .item-caption {
         display: none !important;
