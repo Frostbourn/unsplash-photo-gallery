@@ -22,9 +22,10 @@ const App = () => {
 
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
+    setPage(1);
   };
 
-  const getMorePhotos = (count = 9, page) => {
+  const getMorePhotos = (count, page) => {
     unsplash.search
       .getPhotos({
         query: query,
@@ -53,6 +54,7 @@ const App = () => {
         setPhotos(results.results);
         setTotal(results.total);
         setLoading(true);
+        setPage(1);
       });
   }, [query]);
 
@@ -79,7 +81,11 @@ const App = () => {
             dataLength={photos.length}
             next={() => getMorePhotos(9, page + 1)}
             hasMore={true}
-            scrollThreshold={1}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
           >
             {isLoading ? <Photos photos={photos.slice(1)} /> : ""}
           </InfiniteScroll>

@@ -1,5 +1,6 @@
 import React from "react";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import Masonry from "react-masonry-css";
 
 const lightboxOptions = {
   settings: {
@@ -15,6 +16,12 @@ const lightboxOptions = {
   thumbnails: {
     showThumbnails: false
   }
+};
+
+const breakpointColumnsObj = {
+  default: 3,
+  1000: 2,
+  600: 1
 };
 
 const Photos = ({ photos }) => {
@@ -47,7 +54,15 @@ const Photos = ({ photos }) => {
   let content = gallery.length && gallery;
   return (
     <SimpleReactLightbox>
-      <SRLWrapper options={lightboxOptions}>{content}</SRLWrapper>
+      <SRLWrapper options={lightboxOptions}>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="masonry-grid"
+          columnClassName="grid-column"
+        >
+          {content}
+        </Masonry>
+      </SRLWrapper>
     </SimpleReactLightbox>
   );
 };
