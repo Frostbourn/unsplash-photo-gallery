@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { createApi } from "unsplash-js";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import "./App.scss";
 import Spinner from "./components/Spinner";
-import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import Sentence from "./components/Sentence";
@@ -14,8 +14,8 @@ const unsplash = createApi({
 });
 
 const App = () => {
-  const [query, setQuery] = useState("funny");
-  const [photosData, setPhotosData] = useState([]);
+  const [query, setQuery] = useState("Winter");
+  const [photos, setPhotos] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState("");
@@ -33,7 +33,7 @@ const App = () => {
       })
       .then((result) => {
         const results = result.response.results;
-        setPhotosData([...photosData, ...results]);
+        setPhotos([...photos, ...results]);
         setLoading(true);
         let nextPage = page;
         nextPage++;
@@ -50,7 +50,7 @@ const App = () => {
       })
       .then((result) => {
         const results = result.response;
-        setPhotosData(results.results);
+        setPhotos(results.results);
         setTotal(results.total);
         setLoading(true);
       });
@@ -62,8 +62,8 @@ const App = () => {
         <div
           className="header-bg"
           style={{
-            backgroundImage: photosData.length
-              ? `url(${photosData[0].urls.regular})`
+            backgroundImage: photos.length
+              ? `url(${photos[0].urls.regular})`
               : "url(https://images.unsplash.com/photo-1604030560689-97ccf543b3a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&dpr=1&auto=format%2Ccompress&fit=crop&w=2599&h=594)"
           }}
         ></div>
@@ -76,12 +76,12 @@ const App = () => {
       <Suspense fallback={<Spinner />}>
         <div className="app-gallery">
           <InfiniteScroll
-            dataLength={photosData.length}
+            dataLength={photos.length}
             next={() => getMorePhotos(9, page + 1)}
             hasMore={true}
             scrollThreshold={1}
           >
-            {isLoading ? <Photos photos={photosData.slice(1)} /> : ""}
+            {isLoading ? <Photos photos={photos.slice(1)} /> : ""}
           </InfiniteScroll>
         </div>
       </Suspense>

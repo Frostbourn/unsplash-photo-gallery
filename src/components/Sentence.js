@@ -1,4 +1,5 @@
 import React from "react";
+import CountUp from "react-countup";
 
 const Sentence = ({ stats, query }) => {
   return (
@@ -21,7 +22,11 @@ const Sentence = ({ stats, query }) => {
           </p>
         ) : (
           <p className="gallery-stats">
-            Currently showing <b>{stats}</b> results for:
+            Currently showing{" "}
+            <strong>
+              <CountUp end={stats} />
+            </strong>{" "}
+            results for:
             <b className="query"> {query}</b>
           </p>
         )}
