@@ -36,9 +36,7 @@ const App = () => {
         const results = result.response.results;
         setPhotos([...photos, ...results]);
         setLoading(true);
-        let nextPage = page;
-        nextPage++;
-        setPage(nextPage);
+        setPage(page);
       });
   };
 
@@ -54,7 +52,7 @@ const App = () => {
         setPhotos(results.results);
         setTotal(results.total);
         setLoading(true);
-        //setPage(1);
+        setPage(1);
       });
   }, [query]);
 
@@ -75,12 +73,12 @@ const App = () => {
         </div>
       </div>
       <Sentence stats={total} query={query} />
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner key={0} />}>
         <div className="app-gallery">
           <InfiniteScroll
             dataLength={photos.length}
             next={() => getMorePhotos(9, page + 1)}
-            hasMore={true}
+            hasMore={true || false}
             endMessage={
               <p style={{ textAlign: "center" }}>
                 <b>Yay! You have seen it all</b>
