@@ -192,13 +192,6 @@ body {
       padding: 0 15vh;
       max-width: 1280px;
 
-
-      &:hover {
-        img {
-          opacity: 0.75;
-        }
-      }
-
       .infinite-scroll-component {
         overflow: hidden !important;
       }
@@ -207,6 +200,12 @@ body {
         display: flex;
         margin-left: -30px;
         width: auto;
+        
+      &:hover {
+        img {
+          opacity: 0.75;
+        }
+      }
       
 
       .grid-column {

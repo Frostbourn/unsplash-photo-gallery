@@ -22,7 +22,7 @@ const App = () => {
 
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
-    setPage(1);
+    //setPage(1);
   };
 
   const getMorePhotos = (count, page) => {
@@ -54,7 +54,7 @@ const App = () => {
         setPhotos(results.results);
         setTotal(results.total);
         setLoading(true);
-        setPage(1);
+        //setPage(1);
       });
   }, [query]);
 
