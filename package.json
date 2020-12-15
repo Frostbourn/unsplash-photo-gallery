@@ -11,6 +11,7 @@
     "react-infinite-scroll-component": "5.1.0",
     "react-masonry-css": "1.0.14",
     "react-scripts": "3.4.3",
+    "react-scroll-to-top": "1.0.5",
     "simple-react-lightbox": "3.3.4-2",
     "unsplash-js": "7.0.1"
   },

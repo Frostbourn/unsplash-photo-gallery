@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { createApi } from "unsplash-js";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ScrollToTop from "react-scroll-to-top";
 
 import "./App.scss";
 import Spinner from "./components/Spinner";
@@ -22,7 +23,6 @@ const App = () => {
 
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
-    //setPage(1);
   };
 
   const getMorePhotos = (count, page) => {
@@ -37,6 +37,7 @@ const App = () => {
         setPhotos([...photos, ...results]);
         setLoading(true);
         setPage(page);
+        // console.log(page);
       });
   };
 
@@ -73,7 +74,7 @@ const App = () => {
         </div>
       </div>
       <Sentence stats={total} query={query} />
-      <Suspense fallback={<Spinner key={0} />}>
+      <Suspense fallback={<Spinner />}>
         <div className="app-gallery">
           <InfiniteScroll
             dataLength={photos.length}
@@ -89,6 +90,7 @@ const App = () => {
           </InfiniteScroll>
         </div>
       </Suspense>
+      <ScrollToTop smooth viewBox="0 0 24 24" svgPath="M18 15l-6-6-6 6" />
     </div>
   );
 };
