@@ -24,7 +24,7 @@ const SearchForm = ({ onSearchPhoto }) => {
         const suggestionsArray = data;
         // console.log(data);
         setSuggestions({
-          suggestions: suggestionsArray,
+          suggestions: suggestionsArray
         });
       });
   };
@@ -67,6 +67,15 @@ const SearchForm = ({ onSearchPhoto }) => {
     };
   }, [showSuggestions]);
 
+  const mostSearched = [
+    "Wallpapers",
+    "Nature",
+    "Architecture",
+    "Fashion",
+    "Film",
+    "Travel"
+  ];
+
   return (
     <form ref={ref} onSubmit={onSubmitForm}>
       <label>
@@ -79,11 +88,25 @@ const SearchForm = ({ onSearchPhoto }) => {
           value={search}
         />
       </label>
-      {showSuggestions && (
+      {showSuggestions ? (
         <Suggestions
           suggestions={suggestions}
           onClick={(e) => onSuggestionClick(e)}
         />
+      ) : (
+        <div className="most-searched">
+          <span>Tags: </span>
+          {mostSearched.map((suggestion, index) => {
+            return (
+              <span
+                className="default-suggestion"
+                onClick={() => onSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </span>
+            );
+          })}
+        </div>
       )}
     </form>
   );
