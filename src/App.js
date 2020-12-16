@@ -15,7 +15,7 @@ const unsplash = createApi({
 });
 
 const App = () => {
-  const [query, setQuery] = useState("Winter");
+  const [query, setQuery] = useState("Travel");
   const [photos, setPhotos] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
