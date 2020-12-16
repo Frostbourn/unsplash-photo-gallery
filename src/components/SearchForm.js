@@ -2,6 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import Suggestions from "./Suggestions";
 
 const SearchForm = ({ onSearchPhoto }) => {
+  const mostSearched = [
+    "Wallpapers",
+    "Nature",
+    "Architecture",
+    "Fashion",
+    "Film",
+    "Animals"
+  ];
+
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -67,15 +76,6 @@ const SearchForm = ({ onSearchPhoto }) => {
     };
   }, [showSuggestions]);
 
-  const mostSearched = [
-    "Wallpapers",
-    "Nature",
-    "Architecture",
-    "Fashion",
-    "Film",
-    "Travel"
-  ];
-
   return (
     <form ref={ref} onSubmit={onSubmitForm}>
       <label>
@@ -99,6 +99,7 @@ const SearchForm = ({ onSearchPhoto }) => {
           {mostSearched.map((suggestion, index) => {
             return (
               <span
+                key={index}
                 className="default-suggestion"
                 onClick={() => onSuggestionClick(suggestion)}
               >
