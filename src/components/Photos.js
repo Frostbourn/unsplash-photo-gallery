@@ -41,9 +41,23 @@ const Photos = ({ photos }) => {
                 </span>{" "}
                 {photo.likes}
               </p>
+            </div>
+            <div className="profile-details">
+              <a
+                href={photo.user.links.html}
+                className="picture"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={photo.user.profile_image.small}
+                  alt={photo.user.username}
+                />
+                {photo.user.name}
+              </a>
               <a
                 href={photo.links.download + "?force=true"}
-                className="item-button"
+                className="download-button"
                 target="_self"
                 rel="noopener noreferrer"
               >
@@ -60,19 +74,6 @@ const Photos = ({ photos }) => {
                 >
                   <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
                 </svg>
-              </a>
-            </div>
-            <div className="profile-picture">
-              <a
-                href={photo.user.links.html}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={photo.user.profile_image.small}
-                  alt={photo.user.username}
-                />
-                {photo.user.name}
               </a>
             </div>
           </div>
