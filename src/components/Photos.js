@@ -42,9 +42,9 @@ const Photos = ({ photos }) => {
                 {photo.likes}
               </p>
               <a
-                href={photo.links.download}
+                href={photo.links.download + "?force=true"}
                 className="item-button"
-                target="_blank"
+                target="_self"
                 rel="noopener noreferrer"
               >
                 <svg

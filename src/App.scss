@@ -206,11 +206,11 @@ body {
               margin-left: -30px;
               width: auto;
 
-              &:hover {
-                  img {
-                      opacity: 0.75;
-                  }
-              }
+              // &:hover {
+              //     img {
+              //         opacity: 0.75;
+              //     }
+              // }
 
 
               .grid-column {
@@ -235,6 +235,8 @@ body {
                       &:hover {
                           img {
                               opacity: 1;
+
+
                           }
 
                           .item-caption {
@@ -242,6 +244,16 @@ body {
                               white-space: nowrap;
                               overflow: hidden;
                               text-overflow: ellipsis;
+
+                              &:before {
+                                  content: "";
+                                  position: absolute;
+                                  top: 0;
+                                  left: 0;
+                                  width: 100%;
+                                  height: 100%;
+                                  background: linear-gradient(0deg, rgba(0,0,0,0.6755077030812324) 0%, rgba(0,0,0,0) 30%);
+                              }
                           }
                       }
 
@@ -284,8 +296,6 @@ body {
                               }
                           }
 
-
-
                           .profile-picture {
                               position: absolute;
                               display: inline-block;
@@ -301,9 +311,11 @@ body {
 
 
                                   img {
-                                      padding: 0 10px 0 0;
+                                      margin: 0 10px 0 0;
                                       width: 35px;
                                       border-radius: 50%;
+
+
                                   }
                               }
                           }
