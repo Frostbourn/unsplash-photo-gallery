@@ -80,6 +80,7 @@ const Photos = ({ photos }) => {
       );
     });
   let content = gallery.length && gallery;
+
   return (
     <SimpleReactLightbox>
       <SRLWrapper options={lightboxOptions}>

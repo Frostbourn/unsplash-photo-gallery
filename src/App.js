@@ -25,36 +25,46 @@ const App = () => {
     setQuery(searchTerms);
   };
 
-  const getMorePhotos = (count, page) => {
-    unsplash.search
-      .getPhotos({
-        query: query,
-        page: page,
-        per_page: count
-      })
-      .then((result) => {
-        const results = result.response.results;
-        setPhotos([...photos, ...results]);
-        setLoading(true);
-        setPage(page);
-        // console.log(page);
-      });
+  const getMorePhotos = async (count, page) => {
+    try {
+      await unsplash.search
+        .getPhotos({
+          query: query,
+          page: page,
+          per_page: count
+        })
+        .then((result) => {
+          const results = result.response.results;
+          setTotal(result.response.total);
+          setPhotos([...photos, ...results]);
+          setPage(page);
+          console.log(photos);
+        });
+    } catch (err) {
+      console.log("Unable to retrieve photos. Reason: " + err);
+    }
   };
 
   useEffect(() => {
-    unsplash.search
-      .getPhotos({
-        query: query,
-        page: 1,
-        per_page: 9
-      })
-      .then((result) => {
-        const results = result.response;
-        setPhotos(results.results);
-        setTotal(results.total);
-        setLoading(true);
-        setPage(1);
-      });
+    (async function () {
+      try {
+        await unsplash.search
+          .getPhotos({
+            query: query,
+            page: 1,
+            per_page: 9
+          })
+          .then((result) => {
+            const results = result.response;
+            setTotal(results.total);
+            setPhotos(results.results);
+            setLoading(true);
+            setPage(1);
+          });
+      } catch (err) {
+        console.log("Unable to retrieve photos. Reason: " + err);
+      }
+    })();
   }, [query]);
 
   return (
@@ -79,14 +89,23 @@ const App = () => {
           <InfiniteScroll
             dataLength={photos.length}
             next={() => getMorePhotos(9, page + 1)}
-            hasMore={true || false}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
+            hasMore={isLoading}
           >
-            {isLoading ? <Photos photos={photos.slice(1)} /> : ""}
+            {" "}
+            {isLoading ? (
+              <>
+                <Photos photos={photos.slice(1)} />
+                {photos.length === total ? (
+                  <p style={{ textAlign: "center", padding: "50px" }}>
+                    <b>Yay! You have seen it all...</b>
+                  </p>
+                ) : (
+                  ""
+                )}
+              </>
+            ) : (
+              ""
+            )}
           </InfiniteScroll>
         </div>
       </Suspense>
