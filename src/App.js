@@ -38,7 +38,6 @@ const App = () => {
           setTotal(result.response.total);
           setPhotos([...photos, ...results]);
           setPage(page);
-          console.log(photos);
         });
     } catch (err) {
       console.log("Unable to retrieve photos. Reason: " + err);
