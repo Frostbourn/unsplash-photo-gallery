@@ -1,3 +1,5 @@
+/* Contact: https://jakubskowronski.com */
+
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { createApi } from "unsplash-js";
 import InfiniteScroll from "react-infinite-scroll-component";
