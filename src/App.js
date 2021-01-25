@@ -1,20 +1,17 @@
 /* Contact: https://jakubskowronski.com */
 
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { createApi } from "unsplash-js";
+import { unsplash } from "./api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ScrollToTop from "react-scroll-to-top";
 
-import "./App.scss";
 import Spinner from "./components/Spinner";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import Sentence from "./components/Sentence";
 const Photos = lazy(() => import("./components/Photos"));
 
-const unsplash = createApi({
-  accessKey: "8ba7daec662eb3e3f18f31a571b61faece5beb250fe546925e79e21ca827672f"
-});
+import "./App.scss";
 
 const App = () => {
   const [query, setQuery] = useState("Travel");
@@ -47,7 +44,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    (async function () {
+    (async () => {
       try {
         await unsplash.search
           .getPhotos({
