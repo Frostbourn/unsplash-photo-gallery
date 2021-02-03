@@ -77,7 +77,7 @@ const App = () => {
             {isLoading ? (
               <>
                 <Photos photos={photos.slice(1)} />
-                {photos.length === total ? (
+                {photos.length === total && total !== 0 ? (
                   <p style={{ textAlign: "center", padding: "50px" }}>
                     <b>Yay! You have seen it all...</b>
                   </p>
