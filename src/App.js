@@ -5,13 +5,13 @@ import { unsplash } from "./api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ScrollToTop from "react-scroll-to-top";
 
+import "./App.scss";
+
 import Spinner from "./components/Spinner";
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import Sentence from "./components/Sentence";
 const Photos = lazy(() => import("./components/Photos"));
-
-import "./App.scss";
 
 const App = () => {
   const [query, setQuery] = useState("Travel");
@@ -19,13 +19,11 @@ const App = () => {
   const [isLoading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState("");
-  const [backgroundPhoto, setBackgroundPhoto] = useState(
-    "https://images.unsplash.com/photo-1604030560689-97ccf543b3a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&dpr=1&auto=format%2Ccompress&fit=crop&w=2599&h=594"
-  );
   const perPage = 9;
 
   const onSearchPhoto = (searchTerms) => {
     setQuery(searchTerms);
+    setLoading(true);
     setPhotos([]);
   };
 
@@ -40,10 +38,8 @@ const App = () => {
         .then((result) => {
           setTotal(result.response.total);
           setPage(page);
-          photos.length
-            ? setPhotos([...photos, ...result.response.results])
-            : setPhotos(result.response.results);
-          setBackgroundPhoto(result.response.results[0].urls.regular);
+          photos.length ? 
+          setPhotos([...photos, ...result.response.results]) : setPhotos(result.response.results)
         });
     } catch (err) {
       console.log("Unable to retrieve photos. Reason: " + err);
@@ -61,7 +57,7 @@ const App = () => {
         <div
           className="header-bg"
           style={{
-            backgroundImage: `url(${backgroundPhoto})`
+            backgroundImage: photos.length ? `url(${photos.[0].urls.regular})` : ""
           }}
         ></div>
         <div className="search-form">
