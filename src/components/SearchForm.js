@@ -78,9 +78,10 @@ const SearchForm = ({ onSearchPhoto }) => {
 
   return (
     <form ref={ref} onSubmit={onSubmitForm}>
-      <label>
+      <label className="form__label">
         <input
           id="query"
+          className="form__input"
           type="text"
           placeholder="Search free high-resolution photos"
           onChange={onInputChange}
@@ -94,13 +95,13 @@ const SearchForm = ({ onSearchPhoto }) => {
           onClick={(e) => onSuggestionClick(e)}
         />
       ) : (
-        <div className="most-searched">
-          <span>Tags: </span>
+        <div className="form__tags">
+          <span className="tag">Tags: </span>
           {mostSearched.map((suggestion, index) => {
             return (
               <span
                 key={index}
-                className="default-suggestion"
+                className="tag"
                 onClick={() => onSuggestionClick(suggestion)}
               >
                 {suggestion}

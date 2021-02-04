@@ -4,7 +4,7 @@ import CountUp from "react-countup";
 const Sentence = ({ stats, query }) => {
   return (
     <>
-      <div className="app-sentence">
+      <div className="stats">
         <svg
           width="32"
           height="32"
@@ -21,7 +21,7 @@ const Sentence = ({ stats, query }) => {
             again!
           </p>
         ) : (
-          <p className="gallery-stats">
+          <p>
             Currently showing
             <strong> {stats && <CountUp end={stats} />} </strong>
             results for:

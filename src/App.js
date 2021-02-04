@@ -8,9 +8,9 @@ import ScrollToTop from "react-scroll-to-top";
 import "./App.scss";
 
 import Spinner from "./components/Spinner";
-import Header from "./components/Header";
+import HeaderText from "./components/HeaderText";
 import SearchForm from "./components/SearchForm";
-import Sentence from "./components/Sentence";
+import Stats from "./components/Stats";
 const Photos = lazy(() => import("./components/Photos"));
 
 const App = () => {
@@ -53,21 +53,21 @@ const App = () => {
 
   return (
     <div className="app">
-      <div className="app-header">
+      <div className="header">
         <div
-          className="header-bg"
+          className="header__background"
           style={{
             backgroundImage: photos.length ? `url(${photos.[0].urls.regular})` : ""
           }}
         ></div>
-        <div className="search-form">
-          <Header />
+        <div className="header__form">
+          <HeaderText />
           <SearchForm onSearchPhoto={onSearchPhoto} />
         </div>
       </div>
-      <Sentence stats={total} query={query} />
+      <Stats stats={total} query={query} />
       <Suspense fallback={<Spinner />}>
-        <div className="app-gallery">
+        <div className="gallery">
           <InfiniteScroll
             dataLength={photos.length}
             next={() => getMorePhotos(page + 1)}
@@ -78,9 +78,9 @@ const App = () => {
               <>
                 <Photos photos={photos.slice(1)} />
                 {photos.length === total && total !== 0 ? (
-                  <p style={{ textAlign: "center", padding: "50px" }}>
-                    <b>Yay! You have seen it all...</b>
-                  </p>
+                  <div className="end__text">
+                    Yay! You have seen it all...
+                  </div>
                 ) : (
                   ""
                 )}

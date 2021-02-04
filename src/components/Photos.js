@@ -30,21 +30,21 @@ const Photos = ({ photos }) => {
     !!photos.length &&
     photos.map((photo, index) => {
       return (
-        <div key={index} className="item">
+        <div key={index} className="gallery__item">
           <img src={photo.urls.regular} alt={"Author: " + photo.user.name} />
-          <div className="item-caption">
-            <div className="profile-links">
-              <p className="item-likes">
+          <div className="item-details">
+            <div className="details-likes">
+              <p>
                 <span role="img" aria-label="heart emoji">
                   ❤️
                 </span>{" "}
                 {photo.likes}
               </p>
             </div>
-            <div className="profile-details">
+            <div className="details-profile">
               <a
                 href={photo.user.links.html}
-                className="picture"
+                className="details-profile__image"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -52,11 +52,13 @@ const Photos = ({ photos }) => {
                   src={photo.user.profile_image.small}
                   alt={photo.user.username}
                 />
-                {photo.user.name}
+                <span className="details-profile__username">
+                  {photo.user.name}
+                </span>
               </a>
               <a
                 href={photo.links.download + "?force=true"}
-                className="download-button"
+                className="details-profile__button"
                 target="_self"
                 rel="noopener noreferrer"
               >
@@ -79,6 +81,7 @@ const Photos = ({ photos }) => {
         </div>
       );
     });
+
   let content = gallery.length && gallery;
 
   return (
@@ -86,8 +89,8 @@ const Photos = ({ photos }) => {
       <SRLWrapper options={lightboxOptions}>
         <Masonry
           breakpointCols={breakpointColumnsObj}
-          className="masonry-grid"
-          columnClassName="grid-column"
+          className="gallery__row"
+          columnClassName="gallery__column"
         >
           {content}
         </Masonry>

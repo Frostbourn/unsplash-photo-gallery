@@ -11,22 +11,34 @@ const Suggestions = ({ suggestions, onClick }) => {
     !!suggestionsArray.length &&
     suggestionsArray.map((suggestion, index) => {
       return (
-        <li key={index} onClick={() => handleChange(suggestion.word)}>
-          <a href="#top">{suggestion.word}</a>
+        <li
+          className="suggestion"
+          key={index}
+          onClick={() => handleChange(suggestion.word)}
+        >
+          <a className="suggestion__link" href="#top">
+            {suggestion.word}
+          </a>
         </li>
       );
     });
 
   return (
     <>
-      <ul>
+      <ul className="form__suggestions">
         {autocomplete}
         {suggestionsArray ? (
-          <li style={{ fontStyle: "italic", fontWeight: "bold" }}>
+          <li
+            className="suggestion"
+            style={{ fontStyle: "italic", fontWeight: "bold" }}
+          >
             Suggestions: {Object.keys(suggestionsArray).length}
           </li>
         ) : (
-          <li style={{ fontStyle: "italic", fontWeight: "bold" }}>
+          <li
+            className="suggestion"
+            style={{ fontStyle: "italic", fontWeight: "bold" }}
+          >
             No suggestions
           </li>
         )}
