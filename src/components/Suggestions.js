@@ -25,7 +25,7 @@ const Suggestions = ({ suggestions, onClick }) => {
 
   return (
     <>
-      <ul className="form__suggestions">
+      <ul className="search__suggestions">
         {autocomplete}
         {suggestionsArray ? (
           <li
