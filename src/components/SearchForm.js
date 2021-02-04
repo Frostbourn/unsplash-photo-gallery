@@ -97,7 +97,6 @@ const SearchForm = ({ onSearchPhoto }) => {
         />
       ) : (
         <div className="search__tags">
-          <span className="tag">Tags: </span>
           {mostSearched.map((suggestion, index) => {
             return (
               <span

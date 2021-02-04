@@ -132,17 +132,15 @@ body {
                         border: 1px solid #aaa;
                         border-radius: 4px;
                         outline: none;
-
-
                     }
 
                     .search__suggestions {
                         z-index: 999;
-                        position: relative;
+                        position: absolute;
                         background: white;
                         margin: 0 auto;
                         padding: 0;
-                        width: auto;
+                        width: 45vw;
                         display: block;
                         overflow-y: auto;
                         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -172,8 +170,11 @@ body {
                     }
 
                     .search__tags {
-                        display: flex;
-                        justify-content: flex-start;
+                        display: inline-block;
+                        width: 75vw;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        color: #fff;
 
                         .tag {
                             padding: 5px;
@@ -358,7 +359,7 @@ body {
             }
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 700px) {
             .header__form {
                 width: 100vw;
                 display: flex;
@@ -377,20 +378,15 @@ body {
                 }
 
                 .form__search {
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
-
-                    .search__label {
-                        margin: 0 auto;
-                    }
+                    display: block;
+                    margin: 0 auto;
 
                     .search__input {
                         width: 80vw !important;
                     }
 
-                    .search__tags {
-                        justify-content: center !important;
+                    .search__suggestions {
+                        width: 80vw !important;
                     }
                 }
             }
