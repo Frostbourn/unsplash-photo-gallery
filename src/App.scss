@@ -136,11 +136,10 @@ body {
 
                     .search__suggestions {
                         z-index: 999;
-                        position: absolute;
+                        position: relative;
                         background: white;
                         margin: 0 auto;
                         padding: 0;
-                        width: 45vw;
                         display: block;
                         overflow-y: auto;
                         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -171,7 +170,6 @@ body {
 
                     .search__tags {
                         display: inline-block;
-                        width: 75vw;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         color: #fff;
@@ -378,8 +376,10 @@ body {
                 }
 
                 .form__search {
-                    display: block;
                     margin: 0 auto;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
 
                     .search__input {
                         width: 80vw !important;
@@ -387,6 +387,10 @@ body {
 
                     .search__suggestions {
                         width: 80vw !important;
+                    }
+
+                    .search__tags {
+                        width: 75vw;
                     }
                 }
             }
