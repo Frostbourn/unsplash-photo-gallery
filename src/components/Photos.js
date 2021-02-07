@@ -4,14 +4,16 @@ import Masonry from "react-masonry-css";
 
 const lightboxOptions = {
   settings: {
-    // disableKeyboardControls: true,
+    disableKeyboardControls: true,
     disableWheelControls: true
   },
   buttons: {
     showAutoplayButton: false,
     showDownloadButton: false,
     showFullscreenButton: false,
-    showThumbnailsButton: false
+    showThumbnailsButton: false,
+    showNextButton: false,
+    showPrevButton: false
   },
   thumbnails: {
     showThumbnails: false
