@@ -9,7 +9,7 @@ const lightboxOptions = {
   },
   buttons: {
     showAutoplayButton: false,
-    showDownloadButton: false,
+    showDownloadButton: true,
     showFullscreenButton: false,
     showThumbnailsButton: false,
     showNextButton: false,
