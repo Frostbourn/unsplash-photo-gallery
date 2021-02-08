@@ -324,7 +324,7 @@ body {
                                     }
 
                                     .details-profile__username {
-                                        flex: 0.8;
+                                        flex: 1;
                                         overflow: hidden;
                                         display: inline-block;
                                         text-overflow: ellipsis;
@@ -394,7 +394,7 @@ body {
                 padding: 0 3vw;
 
                 .details-profile__username {
-                    flex: 0.6;
+                    flex: 0.6 !important;
                 }
             }
         }
