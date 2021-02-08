@@ -49,7 +49,7 @@ const App = () => {
   useEffect(() => {
     setPage(1);
     getMorePhotos(1);
-  }, [query]);
+  }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="app">
