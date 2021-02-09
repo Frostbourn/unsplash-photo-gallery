@@ -356,6 +356,21 @@ body {
             }
         }
 
+        @media (max-width: 1200px) {
+            .header {
+            
+                &__form {
+                    width: 50vw !important;
+
+                    .form__search {
+                        .search__input{
+                            width:50vw !important;
+                        } 
+                    }
+                }
+            }
+        }
+
         @media (max-width: 700px) {
             .header__form {
                 width: unset !important;
